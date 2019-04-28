@@ -20,7 +20,9 @@
         <span><a href="https://codepen.io/martinkrulltott/" target="_blank">CodePen</a></span>
         <span><a href="https://github.com/martinkrulltott/" target="_blank">GitHub</a></span>
       </div>
-      <div class="content">... or just <a href="mailto:martin@moid.se?subject=Hello!">send me an email!</a></div>
+      <div class="content">... or just 
+        <a href="mailto:martin@moid.se?subject=Hello!">send me an email!</a>
+      </div>
     </div>
     <div class="loader" v-if="!palette || !palette.colors">Loading...</div>
   </div>
