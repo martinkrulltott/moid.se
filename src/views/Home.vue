@@ -15,6 +15,12 @@
         <h1>Martin Ohlson</h1>
         <h2>Senior Front End Developer</h2>
       </div>
+      <div class="content">
+        <p>B.Sc. Informatics</p>
+        <p>Microsoft MCSD certified</p>
+        <p>Front-end Ninja</p>
+        <p>CSS Lover</p>
+      </div>
       <div class="content space-between">
         <span><a href="https://www.linkedin.com/in/ohlsonmartin/" target="_blank">LinkedIn</a></span>
         <span><a href="https://codepen.io/martinkrulltott/" target="_blank">CodePen</a></span>
@@ -134,7 +140,7 @@ export default {
     padding: 10px 20px;
     opacity: 0;
     animation: reveal 1s forwards;
-    @for $i from 1 through 3 {
+    @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
         animation-delay: 1.5s + ($i * 0.3s);
       }
