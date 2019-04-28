@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container" :class="{ 'empty': empty }" v-if="palette && palette.colors">
+    <div class="background" :class="{ 'empty': empty }" v-if="palette && palette.colors">
       <trianglify
         :key="trianglifyKey"
         :width=trianglifySettings.width
@@ -10,13 +10,17 @@
         :strokeWidth=trianglifySettings.strokeWidth
         :xColors=trianglifySettings.xColors />
     </div>
-    <div class="colors" v-if="palette && palette.colors">
-      <div :class="{ 'empty': empty }"
-        class="color"
-        v-for="(n, index) in 5"
-        :key="index"
-        :style="[ !empty ? { 'background-color': `#${palette.colors[index]}` } : {}]">
+    <div class="wrapper" v-if="palette && palette.colors">
+      <div class="content">
+        <h1>Martin Ohlson</h1>
+        <h2>Senior Front End Developer</h2>
       </div>
+      <div class="content space-between">
+        <span><a href="https://www.linkedin.com/in/ohlsonmartin/" target="_blank">LinkedIn</a></span>
+        <span><a href="https://codepen.io/martinkrulltott/" target="_blank">CodePen</a></span>
+        <span><a href="https://github.com/martinkrulltott/" target="_blank">GitHub</a></span>
+      </div>
+      <div class="content">... or just <a href="mailto:martin@moid.se?subject=Hello!">send me an email!</a></div>
     </div>
     <div class="loader" v-if="!palette || !palette.colors">Loading...</div>
   </div>
@@ -45,7 +49,7 @@ export default {
       const colors = this.palette ? this.palette.colors : null;
       return {
         width: window.innerWidth,
-        height: window.innerHeight - 16,
+        height: window.innerHeight,
         cellSize: 110 * window.devicePixelRatio,
         variance: 1,
         strokeWidth: 2,
@@ -77,10 +81,14 @@ export default {
 </script>
 
 <style lang="scss">
-.container {
+.background {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 
   path {
     opacity: 0;
@@ -109,37 +117,31 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: #ff847c;
   opacity: 0.3;
   font-size: 30px;
 }
 
-.colors {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  border-top: 1px solid #fff;
-}
+.wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  margin: 20px;
 
-.color {
-  height: 15px;
-  width: 20%;
-  display: inline-block;
-  float: left;
-  background-color: #fff;
-  transition: background-color .5s;
-  opacity: 0;
-
-  @for $i from 1 through 5 {
-    &:nth-child(#{$i}) {
-      transition-delay: $i * 0.1s;
-      animation: reveal 0.5s forwards;
-      animation-delay: $i * 0.1s;
+  .content {
+    background: rgba(245, 245, 220, 0.7);
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    opacity: 0;
+    animation: reveal 1s forwards;
+    @for $i from 1 through 3 {
+      &:nth-child(#{$i}) {
+        animation-delay: 1.5s + ($i * 0.3s);
+      }
     }
-  }
 
-  &.empty {
-    background-color: #fff;
+    &.space-between {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 }
 </style>

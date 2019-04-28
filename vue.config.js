@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/low-poly-generator/',
+  publicPath: '/moid.se/',
 };
