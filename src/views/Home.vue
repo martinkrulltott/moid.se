@@ -69,7 +69,7 @@ export default {
     refreshPattern() {
       this.trianglifyKey += 1;
       this.palette = this.palettes[Math.round(Math.random() * (this.resultSize - 1))];
-      setTimeout(function() {
+      setTimeout(function () {
         this.empty = false;
       }, 100);
     },
