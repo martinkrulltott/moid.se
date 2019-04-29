@@ -6,6 +6,8 @@ import VueAxios from 'vue-axios';
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
 
+const loadExtrernal = false;
+
 export default new Vuex.Store({
   state: {
     palettes: [],
@@ -19,15 +21,27 @@ export default new Vuex.Store({
   actions: {
     loadPalettes(context, { resultSize }) {
       return new Promise((resolve, reject) => {
-        axios
-          .get(`https://cors-anywhere.herokuapp.com/https://www.colourlovers.com/api/palettes/top?numResults=${resultSize}&format=json`)
-          .then(r => r.data)
-          .then((response) => {
-            context.commit('SET_PALETTES', response);
-            resolve();
-          }).catch((error) => {
-            reject(error.response);
-          });
+        if (loadExtrernal) {
+          axios
+            .get(`https://cors-anywhere.herokuapp.com/https://www.colourlovers.com/api/palettes/top?numResults=${resultSize}&format=json`)
+            .then(r => r.data)
+            .then((response) => {
+              context.commit('SET_PALETTES', response);
+              resolve();
+            }).catch((error) => {
+              reject(error.response);
+            });
+        } else {
+          axios
+            .get('palettes.json')
+            .then(r => r.data)
+            .then((response) => {
+              context.commit('SET_PALETTES', response);
+              resolve();
+            }).catch((error) => {
+              reject(error.response);
+            });
+        }
       });
     },
   },
