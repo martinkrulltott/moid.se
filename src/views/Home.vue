@@ -30,7 +30,7 @@
         <a href="mailto:martin@moid.se?subject=Hello!">send me an email!</a>
       </div>
     </div>
-    <div class="loader" v-if="!palette || !palette.colors">Loading...</div>
+    <!-- <div class="loader" v-if="!palette || !palette.colors">Loading...</div> -->
   </div>
 </template>
 
@@ -58,7 +58,7 @@ export default {
       return {
         width: window.innerWidth,
         height: window.innerHeight,
-        cellSize: 110 * window.devicePixelRatio,
+        cellSize: 70 * window.devicePixelRatio,
         variance: 1,
         strokeWidth: 2,
         xColors: colors,
@@ -69,7 +69,7 @@ export default {
     refreshPattern() {
       this.trianglifyKey += 1;
       this.palette = this.palettes[Math.round(Math.random() * (this.resultSize - 1))];
-      this.empty = false;
+      setTimeout(() => this.empty = false, 100);
     },
   },
   mounted() {
@@ -84,9 +84,7 @@ export default {
 
     setInterval(() => {
       this.empty = true;
-      setTimeout(() => {
-        refreshPattern();
-      }, 2000);
+      setTimeout(() => refreshPattern(), 2000);
     }, 12000);
   },
 };
@@ -101,16 +99,17 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  z-index: -1;
 
   path {
-    opacity: 0;
-
     @for $i from 1 through 10 {
       &:nth-child(#{$i}n + #{$i}) {
         transition: fill .5s linear $i * 0.1s, stroke .5s linear 0.3 + $i * 0.1s, opacity $i * 0.4s;
-        animation: reveal $i * 0.4s forwards;
       }
+    }
+
+    &:hover {
+      transition: opacity 0.4s;
+      opacity: 0.3;
     }
   }
 
@@ -137,7 +136,11 @@ export default {
 .wrapper {
   display: inline-flex;
   flex-direction: column;
-  margin: 20px;
+  max-height: 100vh;
+  max-height: calc(var(--vh, 1vh) * 100);
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 20px;
 
   .content {
     background: rgba(245, 245, 220, 0.7);
@@ -145,6 +148,11 @@ export default {
     padding: 10px 20px;
     opacity: 0;
     animation: reveal 1s forwards;
+
+    &:nth-child(1) {
+      margin-top: 20px;
+    }
+
     @for $i from 1 through 5 {
       &:nth-child(#{$i}) {
         animation-delay: 1.5s + ($i * 0.3s);
