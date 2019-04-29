@@ -73,6 +73,10 @@ export default {
     },
   },
   mounted() {
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    window.addEventListener('resize', () => {
+      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
+    });
     const { refreshPattern } = this;
     this.$store.dispatch('loadPalettes', { resultSize: this.resultSize }).then(() => {
       refreshPattern();
@@ -91,6 +95,7 @@ export default {
 <style lang="scss">
 .background {
   height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 100vw;
   overflow: hidden;
   position: absolute;
