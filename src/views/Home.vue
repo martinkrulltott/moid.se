@@ -21,10 +21,11 @@
         <p>Front-end Ninja</p>
         <p>CSS Lover</p>
       </div>
-      <div class="content space-between">
-        <span><a href="https://www.linkedin.com/in/ohlsonmartin/" target="_blank">LinkedIn</a></span>
-        <span><a href="https://codepen.io/martinkrulltott/" target="_blank">CodePen</a></span>
-        <span><a href="https://github.com/martinkrulltott/" target="_blank">GitHub</a></span>
+      <div class="content">
+        <p><a href="https://www.linkedin.com/in/ohlsonmartin/" target="_blank">LinkedIn</a> - Full background</p>
+        <p><a href="https://github.com/martinkrulltott/" target="_blank">GitHub</a> - Projects</p>
+        <p><a href="https://stackoverflow.com/users/1581477/" target="_blank">Stack Overflow</a> - Coding community</p>
+        <p><a href="https://codepen.io/martinkrulltott/" target="_blank">CodePen</a> - Code snippets</p>
       </div>
       <div class="content">... or just
          <a href="mailto:martin@moid.se?subject=Hello!">send me an email!</a>
@@ -69,9 +70,9 @@ export default {
     refreshPattern() {
       this.trianglifyKey += 1;
       this.palette = this.palettes[Math.round(Math.random() * (this.resultSize - 1))];
-      setTimeout((function () {
+      setTimeout(() => {
         this.empty = false;
-      }).bind(this), 100);
+      }, 100);
     },
   },
   mounted() {
