@@ -1,62 +1,109 @@
 <template>
+
   <div>
-    <div class="background" :class="{ 'empty': empty }" v-if="palette && palette.colors">
+
+    <div class="background" :class="{ empty: empty }" v-if="palette && palette.colors">
+
       <trianglify
         :key="trianglifyKey"
-        :width=trianglifySettings.width
-        :height=trianglifySettings.height
-        :cellSize=trianglifySettings.cellSize
-        :variance=trianglifySettings.variance
-        :strokeWidth=trianglifySettings.strokeWidth
-        :xColors=trianglifySettings.xColors />
+        :width="trianglifySettings.width"
+        :height="trianglifySettings.height"
+        :cellSize="trianglifySettings.cellSize"
+        :variance="trianglifySettings.variance"
+        :strokeWidth="trianglifySettings.strokeWidth"
+        :xColors="trianglifySettings.xColors"
+      />
+
     </div>
+
     <div class="wrapper" v-if="palette && palette.colors">
+
       <div class="content">
+
         <h1>Martin Ohlson</h1>
+
         <h2>Senior Front End Developer</h2>
+
       </div>
+
       <div class="content">
+
         <p>B.Sc. Informatics</p>
+
         <p>Microsoft MCSD certified</p>
+
         <p>Front-end Ninja</p>
+
         <p>CSS Lover</p>
+
       </div>
+
       <div class="content">
-        <p><a href="https://www.linkedin.com/in/ohlsonmartin/" target="_blank">LinkedIn</a> - Full background</p>
-        <p><a href="https://github.com/martinkrulltott/" target="_blank">GitHub</a> - Projects</p>
-        <p><a href="https://stackoverflow.com/users/1581477/" target="_blank">Stack Overflow</a> - Coding community</p>
-        <p><a href="https://codepen.io/martinkrulltott/" target="_blank">CodePen</a> - Code snippets</p>
+
+        <p><a href="https://moid.se/stoked">MOID Sports & Photography</a></p>
+
       </div>
-      <div class="content">... or just
-         <a href="mailto:martin@moid.se?subject=Hello!">send me an email!</a>
+
+      <div class="content">
+
+        <p>
+
+          <a href="https://www.linkedin.com/in/ohlsonmartin/" target="_blank">LinkedIn</a>
+           - Full background
+        </p>
+
+        <p>
+
+          <a href="https://github.com/martinkrulltott/" target="_blank">GitHub</a>
+           - Projects
+        </p>
+
+        <p>
+
+          <a href="https://stackoverflow.com/users/1581477/" target="_blank">Stack Overflow</a>
+           - Coding community
+        </p>
+
+        <p>
+
+          <a href="https://codepen.io/martinkrulltott/" target="_blank">CodePen</a>
+           - Code snippets
+        </p>
+
       </div>
+
+      <div class="content">
+         ... or just
+        <a href="mailto:martin@moid.se?subject=Hello!">send me an email!</a>
+
+      </div>
+
     </div>
+
     <!-- <div class="loader" v-if="!palette || !palette.colors">Loading...</div> -->
+
   </div>
+
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import { Trianglify } from 'vue-trianglify';
+import { mapState } from 'vuex'; import { Trianglify } from 'vue-trianglify';
 
 export default {
-  name: 'home',
-  components: {
-    trianglify: Trianglify,
-  },
+  name:
+'home',
+  components: { trianglify: Trianglify },
   data: () => ({
     resultSize: 50,
     palette: null,
-    empty: true,
+    empty:
+true,
     trianglifyKey: 0,
   }),
   computed: {
-    ...mapState([
-      'palettes',
-    ]),
+    ...mapState(['palettes']),
     trianglifySettings() {
-      const colors = this.palette ? this.palette.colors : null;
-      return {
+      const colors = this.palette ? this.palette.colors : null; return {
         width: window.innerWidth,
         height: window.innerHeight,
         cellSize: 70 * window.devicePixelRatio,
@@ -66,28 +113,21 @@ export default {
       };
     },
   },
-  methods: {
-    refreshPattern() {
-      this.trianglifyKey += 1;
-      this.palette = this.palettes[Math.round(Math.random() * (this.resultSize - 1))];
-      setTimeout(() => {
-        this.empty = false;
-      }, 100);
-    },
+  methods:
+{
+  refreshPattern() {
+    this.trianglifyKey += 1; this.palette = this.palettes[Math.round(Math.random()
+* (this.resultSize - 1))]; setTimeout(() => { this.empty = false; }, 100);
   },
+},
   mounted() {
-    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-    window.addEventListener('resize', () => {
-      document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
-    });
-    const { refreshPattern } = this;
-    this.$store.dispatch('loadPalettes', { resultSize: this.resultSize }).then(() => {
-      refreshPattern();
-    });
-
-    setInterval(() => {
-      this.empty = true;
-      setTimeout(() => refreshPattern(), 2000);
+    document.documentElement.style.setProperty('--vh',
+      `${window.innerHeight * 0.01}px`); window.addEventListener('resize', () => {
+      document.documentElement.style.setProperty('--vh',
+        `${window.innerHeight * 0.01}px`);
+    }); const { refreshPattern } = this; this.$store.dispatch('loadPalettes',
+      { resultSize: this.resultSize }).then(() => { refreshPattern(); }); setInterval(() => {
+      this.empty = true; setTimeout(() => refreshPattern(), 2000);
     }, 12000);
   },
 };
@@ -106,7 +146,8 @@ export default {
   path {
     @for $i from 1 through 10 {
       &:nth-child(#{$i}n + #{$i}) {
-        transition: fill .5s linear $i * 0.1s, stroke .5s linear 0.3 + $i * 0.1s, opacity $i * 0.4s;
+        transition: fill 0.5s linear $i * 0.1s, stroke 0.5s linear 0.3 + $i * 0.1s,
+          opacity $i * 0.4s;
       }
     }
 
@@ -123,8 +164,12 @@ export default {
 }
 
 @keyframes reveal {
-  from {opacity: 0}
-  to {opacity: 1}
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .loader {
@@ -137,13 +182,20 @@ export default {
 }
 
 .wrapper {
+  position: relative;
   display: inline-flex;
   flex-direction: column;
   max-height: 100vh;
   max-height: calc(var(--vh, 1vh) * 100);
+  margin: 0 20px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  margin: 0 20px;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .content {
     background: rgba(245, 245, 220, 0.7);
